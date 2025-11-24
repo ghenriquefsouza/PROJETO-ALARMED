@@ -1,16 +1,44 @@
-# React + Vite
+#  PROJETO ALAR-MED
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Controle inteligente de medicamentos desenvolvido em React.js e Firebase.
 
-Currently, two official plugins are available:
+##  Funcionalidades
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+O ALAR-MED permite aos usuários gerenciar sua medicação com as seguintes funcionalidades:
 
-## React Compiler
+* **Autenticação Completa:** Cadastro e Login de usuários (via Firebase Auth).
+* **Gestão de Medicamentos (CRUD):** Criar, Visualizar, Editar e Excluir medicamentos.
+* **Controle em Tempo Real:** Listagem de medicamentos atualizada instantaneamente (Firestore Real-time).
+* **Histórico de Uso:** Visualização e filtragem do histórico de medicamentos tomados.
+* **Proteção de Rotas:** Acesso restrito apenas para usuários autenticados.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+##  Tecnologias Utilizadas
 
-## Expanding the ESLint configuration
+Este projeto foi desenvolvido utilizando uma arquitetura moderna de Frontend com Backend as a Service (BaaS):
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+| Camada | Tecnologia | Propósito |
+| :--- | :--- | :--- |
+| **Frontend** | React.js (Hooks, JSX) | Construção da interface do usuário (SPA). |
+| **Roteamento** | React Router DOM | Navegação entre as páginas. |
+| **Backend/DB** | Firebase Firestore | Banco de Dados NoSQL e sincronização em Tempo Real (`onSnapshot`). |
+| **Autenticação** | Firebase Authentication | Serviço de Login e Registro. |
+| **Utils** | date-fns | Manipulação e formatação de datas/horários. |
+
+##  Arquitetura do Software
+
+A arquitetura se baseia em componentes e segurança de dados:
+
+1.  **Rotas Protegidas:** O componente `<RequireAuth>` impede o acesso a áreas como `/home` e `/cadastro` se o usuário não estiver logado.
+2.  **Segurança e Privacidade:** Todas as consultas de dados no Firestore são filtradas utilizando o `userId` do usuário logado (usando `where("userId", "==", user.uid)`), garantindo que cada pessoa visualize apenas seus próprios dados.
+3.  **Real-Time Data:** O uso do `onSnapshot` no `Home.jsx` e `Historico.jsx` mantém a aplicação sempre sincronizada com o banco de dados.
+
+## 📦 Estrutura do Projeto
+
+Abaixo a visão do diretório principal:l fight
+
+## 🧑💻 Desenvolvedores
+
+| Aluno | RA |
+| :--- | :--- |
+| **Fernando de Jesus Pereira da Silva** | 324113710 |
+| **Gabriel Henrique Ferreira Souza** | 324143764 |
