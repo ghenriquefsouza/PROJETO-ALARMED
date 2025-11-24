@@ -1,0 +1,283 @@
+body {
+  font-family: "Poppins", sans-serif;
+}
+/* Fundo suave */
+.home-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0f7f5, #e0efff);
+  padding: 40px 20px;
+  display: flex;
+  justify-content: center;
+}
+
+/* Card central */
+.home-wrapper {
+  width: 100%;
+  max-width: 850px;
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+/* Header moderno */
+.home-header-title {
+  font-size: 42px;
+  font-weight: 800;
+  color: #0d9488;
+}
+
+.home-header-sub {
+  color: #555;
+}
+
+.home-header-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* Botão moderno */
+.btn-primary {
+  padding: 12px 25px;
+  border-radius: 12px;
+  border: none;
+  cursor: pointer;
+  background: linear-gradient(to right, #0d9488, #3b82f6);
+  color: white;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.2s ease;
+}
+
+.btn-primary:hover {
+  transform: scale(1.05);
+}
+
+/* Card de medicamento */
+.medicamento-card {
+  background: white;
+  border-radius: 18px;
+  padding: 25px;
+  box-shadow: 0 5px 14px rgba(0, 0, 0, 0.08);
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  transition: 0.2s;
+}
+
+.medicamento-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 8px 18px rgba(0, 0, 0, 0.12);
+}
+
+.medicamento-nome {
+  font-size: 24px;
+  font-weight: 700;
+  color: #0f766e;
+}
+
+.medicamento-info {
+  color: #666;
+}
+
+.horario-badge {
+  background: #dbeafe;
+  color: #1e3a8a;
+  padding: 5px 12px;
+  border-radius: 14px;
+  font-weight: 600;
+  display: inline-block;
+}
+
+/* Ações */
+.card-actions {
+  display: flex;
+  gap: 10px;
+}
+
+.btn-action {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: 600;
+  color: white;
+  transition: 0.2s;
+}
+
+.btn-tomar {
+  background: #0ea5e9;
+}
+
+.btn-tomar:hover {
+  background: #0284c7;
+}
+
+.btn-editar {
+  background: #eab308;
+}
+
+.btn-excluir {
+  background: #ef4444;
+}
+
+.btn-excluir:hover {
+  background: #dc2626;
+}
+/* ANIMAÇÃO SUAVE */
+.fade-in {
+  animation: fadein 0.7s ease forwards;
+}
+
+@keyframes fadein {
+  from {
+    opacity: 0;
+    transform: translateY(15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* HEADER CENTRALIZADO */
+.header-center {
+  text-align: center;
+  margin-bottom: 40px;
+  position: relative;
+}
+
+/* Ícone moderno */
+.icon-pill {
+  font-size: 55px;
+  margin-bottom: 10px;
+  animation: float 2.5s ease-in-out infinite;
+}
+
+/* animação do ícone */
+@keyframes float {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* Título moderno */
+.titulo-app {
+  font-size: 58px;
+  font-weight: 900;
+  color: #0d9488;
+  text-transform: uppercase;
+  letter-spacing: -2px;
+}
+
+.titulo-app span {
+  color: #2563eb;
+}
+
+/* Subtítulo */
+.subtitulo-app {
+  margin-top: 10px;
+  font-size: 16px;
+  color: #657;
+}
+
+/* Botão de histórico estilizado */
+.btn-historico {
+  background-color: #4c6ef5;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.btn-historico:hover {
+  background-color: #364fc7;
+}
+
+/* Centralizador */
+.center-box {
+  text-align: center;
+}
+
+/* GRID dos cards */
+.grid-cards {
+  display: grid;
+  gap: 20px;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+}
+.titulo-app {
+  font-family: "Poppins", sans-serif;
+  font-size: 60px;
+  font-weight: 900;
+  letter-spacing: -2px;
+  color: #0d9488;
+  text-transform: uppercase;
+  text-align: center;
+}
+
+.titulo-app span {
+  color: #2563eb;
+}
+/* Contêiner que deixa os dois botões lado a lado */
+.botoes-container {
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin: 20px 0;
+}
+
+/* Botão Histórico */
+.btn-historico {
+  background-color: #4c6ef5;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-size: 16px;
+  font-weight: 600;
+  transition: 0.25s;
+}
+
+.btn-historico:hover {
+  background-color: #364fc7;
+}
+
+/* Botão Cadastrar Remédio */
+.btn-add {
+  background-color: #40c057;
+  color: white;
+  padding: 12px 20px;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 600;
+  text-decoration: none;
+  border: none;
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.btn-add:hover {
+  background-color: #2f9e44;
+}
+.btn-logout {
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  padding: 10px 18px;
+  background: #ff4d4d;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  z-index: 9999; 
+}
+
+.btn-logout:hover {
+  background: #ff1f1f;
+}
+

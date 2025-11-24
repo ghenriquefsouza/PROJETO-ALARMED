@@ -1,0 +1,77 @@
+.login-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #e0f7f5, #e0efff);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding-top: 40px;
+  font-family: "Poppins", sans-serif;
+}
+
+/* LOGO */
+.login-logo {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+/* Card estilizado */
+.login-card {
+  width: 100%;
+  max-width: 380px;
+  background: #ffffffcc;
+  padding: 30px;
+  border-radius: 18px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  animation: fadein 0.7s ease forwards;
+}
+
+.login-title {
+  text-align: center;
+  font-size: 26px;
+  color: #0d9488;
+  font-weight: 700;
+  margin-bottom: 10px;
+}
+
+/* Inputs */
+.login-input {
+  width: 100%;
+  padding: 12px;
+  border-radius: 10px;
+  border: 1px solid #aaa;
+  outline: none;
+  font-size: 15px;
+  transition: 0.2s;
+}
+
+.login-input:focus {
+  border-color: #0d9488;
+  box-shadow: 0 0 0 2px #0d948833;
+}
+
+/* Botão */
+.btn-login {
+  background: linear-gradient(to right, #0d9488, #2563eb);
+  color: white;
+  border: none;
+  padding: 12px;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: 700;
+  font-size: 16px;
+  transition: 0.25s;
+}
+
+.btn-login:hover {
+  transform: scale(1.05);
+}
+
+.register-link {
+  text-align: center;
+  font-size: 14px;
+  color: #333;
+}
