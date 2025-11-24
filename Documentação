@@ -1,0 +1,143 @@
+Requisitos
+O propósito principal deste documento é estabelecer os requisitos funcionais e não
+funcionais para o aplicativo. Ele descreve o que o sistema deve fazer, como ele deve se
+comportar e as restrições que devem ser consideradas durante o desenvolvimento. Este
+documento é essencial para garantir que o produto final atenda às necessidades dos
+usuários, seja confiável e fácil de usar.
+
+1.2 - Público Alvo
+O aplicativo será utilizado por diversas pessoas que precisam de ajuda para lembrar de
+tomar seus medicamentos. O público-alvo inclui:
+● Idosos: Pessoas com dificuldade de memória ou que tomam vários medicamentos.
+● Pessoas com condições crônicas: Indivíduos com doenças que exigem medicação
+regular e pontual.
+● Cuidadores e Familiares: Pessoas que gerenciam a medicação de outros.
+● Qualquer pessoa: Indivíduos que precisam tomar medicamentos por um período
+limitado (antibióticos, por exemplo) e desejam um lembrete confiável.
+
+1.3 - Definições, acrônimos e abreviações
+App/Aplicativo: Refere-se ao aplicativo móvel de alarme de medicamentos.
+Usuário: A pessoa que utilizará o aplicativo.
+Notificação: Alerta ou lembrete visual e sonoro enviado pelo aplicativo.
+UI/UX (Interface de Usuário/Experiência do Usuário): Aspectos do design que
+garantem que o aplicativo seja intuitivo e agradável de usar.
+Login/Cadastro: Processo de criação de conta e acesso ao aplicativo.
+SaaS: Software como Serviço, indicando um modelo de distribuição de software
+
+2. Descrição Geral do Produto
+2.1. Situação Atual
+Não há informações explícitas no PDF sobre a situação atual do negócio do usuário (se usam
+algo hoje ou se a solução será do zero).
+<Comentário: Descrever a situação atual do negócio do usuário que está associado ao
+sistema proposto. Descrever como o usuário realiza seus processos de negócio atualmente>.
+
+2.2. Objetivos do Produto
+O principal objetivo do produto é ser um aplicativo móvel de alarme de medicamentos que
+estabeleça os requisitos funcionais e não funcionais. O sistema deve:
+● Descrever o que o sistema deve fazer.
+● Descrever como ele deve se comportar.
+● Descrever as restrições a serem consideradas durante o desenvolvimento.
+O objetivo final é garantir que o produto:
+● Atenda às necessidades dos usuários.
+● Seja confiável e fácil de usar.
+
+2.3. Benefícios do Projeto
+O projeto trará os seguintes benefícios aos usuários (público-alvo):
+● Lembrete Confiável: Oferece um lembrete confiável para indivíduos que precisam
+tomar medicamentos por um período limitado (como antibióticos).
+● Apoio para Condições Crônicas: Auxilia indivíduos com doenças crônicas que exigem
+medicação regular e pontual.
+● Suporte para Idosos: Ajuda pessoas com dificuldade de memória ou que tomam
+vários medicamentos.
+● Gestão Simplificada: Facilita o gerenciamento da medicação para cuidadores e
+familiares.
+● Confiabilidade e Usabilidade: O produto final será confiável e fácil de usar
+
+3. Requisitos Específicos
+● Os requisitos específicos descrevem as funções que o usuário precisa realizar
+(funcionais) e os parâmetros de funcionamento que trarão uma melhor experiência
+(não funcionais).
+● 3.1. Requisitos Funcionais
+● Requisito Funcional define o funcionamento perceptível do sistema pelos usuários
+(Telas, informações, fluxo de negócio)
+
+    Descrição (Exemplos)
+   - O sistema deverá permitir o Login/Cadastro do usuário.
+   - O sistema deverá permitir ao usuário cadastrar um novo medicamento
+    (nome, dosagem, unidade, observações).
+   - O sistema deverá permitir ao usuário configurar um ou mais alarmes (dia,
+    hora, frequência, som) associados a um medicamento
+   - O sistema deverá enviar uma Notificação (Alerta ou lembrete visual e
+    sonoro) no horário configurado.
+    - O sistema deverá permitir ao usuário confirmar a tomada do
+    medicamento.
+   - O sistema deverá permitir ao usuário visualizar e editar o histórico de
+    medicamentos tomados e alarmes ativos/inativos.
+
+3.2. Requisitos Não Funcionais
+● Requisito Não Funcional define os parâmetros de funcionamento do sistema
+(desempenho, usabilidade, segurança, etc.).
+ Segurança   O sistema deve exigir uma senha segura para o processo
+    de Login/Cadastro.
+ Usabilidade   O sistema deverá ser intuitivo e agradável de usar
+    (Aspectos de ul/ux).
+ Performance  O sistema deverá emitir o alerta ou lembrete visual e
+    sonoro no momento exato, sem atrasos
+  Padrões Usabilidade  A interface do aplicativo deve seguir as diretrizes do
+    sistema operacional (iOS ou Android) para garantir
+    uma boa Experiência do Usuário (ul/ux).
+ Segurança   O sistema deverá garantir a confidencialidade dos dados
+    de medicação do usuário.
+
+Histórias de Usuário (HU)
+- Como um Usuário, eu quero me cadastrar e fazer login, para que eu possa acessar
+de forma segura e personalizada minhas informações de medicação.
+- Como um Usuário, eu quero registrar um novo medicamento com todos os seus
+detalhes (nome, dosagem, unidade, observações), para que eu possa ter um
+controle completo sobre o que preciso tomar.
+- Como um Usuário, eu quero configurar alarmes personalizados (horário,
+frequência e som) para cada medicamento, para garantir que serei lembrado
+exatamente quando preciso tomar.
+- Como um Usuário, eu quero receber um alerta visual e sonoro imediato no
+horário programado, para que eu não perca o momento certo de tomar o
+medicamento.
+- Como um Usuário, eu quero marcar o medicamento como "Tomado" ao receber
+o alarme, para manter meu histórico atualizado e encerrar o lembrete daquela
+dose.
+- Como um Usuário, eu quero visualizar e editar meu histórico de tomadas e a lista
+de alarmes ativos/inativos, para monitorar minha adesão ao tratamento e fazer
+ajustes quando necessário.
+
+Critérios de Aceitação (CA)
+(Cadastro e Login) 1.: A senha deve ter, no mínimo, seis caracteres, entre
+números e letras.
+2.: O sistema deve garantir a confidencialidade dos dados do usuário.
+3.: O processo de login/cadastro deve ser intuitivo.
+(Registro de Medicamento) 1. O usuário deve ser capaz de informar o nome,
+dosagem e unidade (ex: mg, ml).
+2. A navegação na tela deve seguir os padrões do sistema operacional.
+(Configuração de Alarme) 1. Deve ser possível configurar recorrência (diária,
+semanal, a cada X horas).
+2. Deve ser possível selecionar o som de notificação.
+(Recebimento de Notificação) 1.: O alerta deve ser emitido no momento
+exato, sem atrasos.
+2. A notificação deve ser visual e audível.
+3. Deve permitir a interação (Tomar ou Ignorar) a partir da notificação.
+(Confirmação de Tomada) 1.: O medicamento só pode ser marcado como
+"Tomado" se a hora atual for igual ou posterior à hora agendada do alarme.
+2. A confirmação deve registrar a data e hora da tomada no histórico.
+(Visualização/Edição) 1.: Um medicamento com alarmes ativos não poderá
+ser excluído sem que antes todos os alarmes associados sejam desativados.
+2. Deve ser possível filtrar o histórico por medicamento e período.
+
+
+Observações:
+React: Usado para construir a interface de forma modular e rápida.
+Firebase: Usado como servidor e banco de dados (Autenticação e Firestore).
+Real-Time (onSnapshot): Garante que o site se atualize instantaneamente, sem
+recarregar.
+Rotas Protegidas (<RequireAuth>): Impede o acesso de usuários deslogados às
+áreas privadas.
+Filtro por userId: Garante que cada usuário só acesse seus próprios dados.
+
+
