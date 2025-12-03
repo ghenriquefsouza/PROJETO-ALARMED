@@ -3,7 +3,15 @@ import React, { useEffect, useState } from "react";
 import { format } from "date-fns";
 import "../styles/Historico.css";
 import { useNavigate } from "react-router-dom";
-import { collection, onSnapshot, query, where } from "firebase/firestore";
+import {
+  collection,
+  onSnapshot,
+  query,
+  where,
+  getDocs,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db, auth } from "../services/firebaseConfig";
 
 export default function Historico() {
@@ -20,34 +28,38 @@ export default function Historico() {
         return;
       }
 
-      // Query do Firebase
-      const q = query(collection(db, "remedios"), where("userId", "==", user.uid));
+      // Query do Firebase: lê a coleção "historico"
+      const q = query(collection(db, "historico"), where("userId", "==", user.uid));
 
       // Escuta alterações na coleção
       const unsubscribeSnapshot = onSnapshot(
         q,
         (snapshot) => {
-          const lista = snapshot.docs.map((doc) => {
-            const data = doc.data();
+          const lista = snapshot.docs.map((docSnap) => {
+            const data = docSnap.data();
 
-            // Fallback para todos os campos
+            // Normaliza os campos que o historicó espera
             return {
-              id: doc.id,
+              id: docSnap.id,
               medicamento_nome: data.nome || "Sem nome",
-              horario_tomado: data.horario ? data.horario.toDate() : null,
-              status:
-                data.tomado === true
-                  ? "tomado"
-                  : data.tomado === false
-                  ? "atrasado"
-                  : "pulado",
+              // data.horario_tomado pode ser Timestamp ou string
+              horario_tomado: data.horario_tomado
+                ? (data.horario_tomado.toDate ? data.horario_tomado.toDate() : new Date(data.horario_tomado))
+                : null,
+              status: data.status || "desconhecido",
               observacao: data.observacao || "",
             };
           });
 
+          // Ordena por horário (mais recente primeiro)
+          lista.sort((a, b) => {
+            const ta = a.horario_tomado ? a.horario_tomado.getTime() : 0;
+            const tb = b.horario_tomado ? b.horario_tomado.getTime() : 0;
+            return tb - ta;
+          });
+
           setHistorico(lista);
           setCarregando(false);
-          console.log("Dados do histórico:", lista);
         },
         (error) => {
           console.error("Erro ao buscar histórico:", error);
@@ -67,14 +79,15 @@ export default function Historico() {
       ? historico
       : historico.filter((h) => h.status === filtroStatus);
 
-  // Configura classes de status
+  // classes de status
   const statusConfig = {
     tomado: "status-concluido",
     atrasado: "status-pendente",
     pulado: "status-cancelado",
+    desconhecido: "status-pendente",
   };
 
-  // Agrupa por data
+  // agrupa por data
   const agruparPorData = (items) => {
     const grupos = {};
     items.forEach((item) => {
@@ -89,6 +102,33 @@ export default function Historico() {
 
   const grupos = agruparPorData(historicoFiltrado);
 
+  // ---------- Função para limpar todo o histórico do usuário ----------
+  const limparHistorico = async () => {
+    if (!window.confirm("Tem certeza que deseja APAGAR TODO o histórico? Essa ação é irreversível.")) return;
+
+    try {
+      const user = auth.currentUser;
+      if (!user) throw new Error("Usuário não autenticado.");
+
+      const ref = collection(db, "historico");
+      const q = query(ref, where("userId", "==", user.uid));
+      const snapshot = await getDocs(q);
+
+      const promises = snapshot.docs.map((d) =>
+        deleteDoc(doc(db, "historico", d.id))
+      );
+
+      await Promise.all(promises);
+
+      // limpa o estado local
+      setHistorico([]);
+      alert("Histórico apagado com sucesso!");
+    } catch (error) {
+      console.error("Erro ao apagar histórico:", error);
+      alert("Erro ao apagar o histórico: " + (error.message || error));
+    }
+  };
+
   return (
     <div className="historico-container">
       <button onClick={() => navigate("/home")} className="btn-voltar">
@@ -96,6 +136,11 @@ export default function Historico() {
       </button>
 
       <h1 className="historico-title">Histórico de Medicamentos</h1>
+
+      {/* botão Limpar — colocado logo abaixo do título */}
+      <button className="btn-limpar" onClick={limparHistorico}>
+        Limpar Histórico
+      </button>
 
       <div className="filtro-container">
         <label>

@@ -1,8 +1,7 @@
-// src/pages/Cadastro.jsx
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { collection, addDoc } from "firebase/firestore";
-import { db, auth } from "../services/firebaseConfig"; 
+import { collection, addDoc, Timestamp } from "firebase/firestore";
+import { db, auth } from "../services/firebaseConfig";
 import "../styles/Cadastro.css";
 
 export default function Cadastro() {
@@ -17,16 +16,24 @@ export default function Cadastro() {
       return;
     }
 
+    // Converte "10:30" para um Date HOJE às 10:30
+    const [hora, minuto] = horario.split(":");
+    const horarioDate = new Date();
+    horarioDate.setHours(hora, minuto, 0, 0);
+
     try {
       await addDoc(collection(db, "remedios"), {
         nome,
         dose,
-        horario,
-        userId: auth.currentUser.uid, 
+        horario: Timestamp.fromDate(horarioDate), // ⬅ AGORA É TIMESTAMP!
+        userId: auth.currentUser.uid,
+        tomado: false, // ⬅ IMPORTANTE!
+        observacao: "" // opcional
       });
 
       alert("Medicamento cadastrado com sucesso!");
-      navigate("/home"); 
+      navigate("/home");
+
     } catch (err) {
       console.error(err);
       alert("Erro ao salvar no Firebase.");
@@ -35,8 +42,6 @@ export default function Cadastro() {
 
   return (
     <div className="cadastro-container">
-
-      {/* 🔙 Botão voltar agora correto */}
       <Link to="/home" className="btn-voltar">← Voltar</Link>
 
       <h1 className="cadastro-title">Cadastrar Medicamento</h1>

@@ -1,10 +1,11 @@
 // src/pages/Home.jsx
 import React, { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import { collection, onSnapshot, query, where, doc, deleteDoc, updateDoc } from "firebase/firestore";
+import {collection,onSnapshot, query,where,doc,deleteDoc,updateDoc,} from "firebase/firestore";
 import { db, auth } from "../services/firebaseConfig";
 import "../styles/home.css";
 import { signOut } from "firebase/auth";
+import { addDoc } from "firebase/firestore";
 
 export default function Home() {
   const [medicamentos, setMedicamentos] = useState([]);
@@ -22,7 +23,7 @@ export default function Home() {
 
   // Buscar medicamentos do usuário logado
   useEffect(() => {
-    const unsubscribeAuth = auth.onAuthStateChanged((user) => {
+    const unsubAuth = auth.onAuthStateChanged((user) => {
       if (!user) {
         setMedicamentos([]);
         navigate("/login");
@@ -34,26 +35,32 @@ export default function Home() {
         where("userId", "==", user.uid)
       );
 
-      const unsubSnapshot = onSnapshot(q, (snapshot) => {
-        const lista = snapshot.docs.map((doc) => ({
-          id: doc.id,
-          ...doc.data(),
-        }));
-        setMedicamentos(lista);
-      });
+      const unsubSnapshot = onSnapshot(
+        q,
+        (snapshot) => {
+          const lista = snapshot.docs.map((d) => ({
+            id: d.id,
+            ...d.data(),
+          }));
+          setMedicamentos(lista);
+        },
+        (err) => {
+          console.error("Erro ao carregar dados:", err);
+        }
+      );
 
+      // 🔥 Aqui é o retorno correto!
       return () => unsubSnapshot();
     });
 
-    return () => unsubscribeAuth();
+    return () => unsubAuth();
   }, [navigate]);
 
   // Deletar medicamento
   const handleDelete = async (id) => {
     if (!auth.currentUser) return;
 
-    const confirm = window.confirm("Deseja realmente excluir este medicamento?");
-    if (!confirm) return;
+    if (!window.confirm("Deseja realmente excluir este medicamento?")) return;
 
     try {
       await deleteDoc(doc(db, "remedios", id));
@@ -63,21 +70,31 @@ export default function Home() {
       alert("Erro ao excluir o medicamento: " + err.message);
     }
   };
-
   // Marcar/desmarcar como tomado
   const handleTomar = async (id, tomadoAtual) => {
-    try {
-      const docRef = doc(db, "remedios", id);
-      await updateDoc(docRef, {
-        tomado: !tomadoAtual,
-      });
-      alert("Medicamento atualizado!");
-    } catch (err) {
-      console.error("Erro ao atualizar:", err);
-      alert("Erro ao atualizar o medicamento: " + err.message);
-    }
-  };
+  try {
+    // Buscar o documento do remédio atual
+    const remedio = medicamentos.find((r) => r.id === id);
 
+    await updateDoc(doc(db, "remedios", id), {
+      tomado: !tomadoAtual,
+    });
+
+    // Registrar no histórico no formato correto
+    await addDoc(collection(db, "historico"), {
+      remedioId: id,
+      userId: auth.currentUser.uid,
+      nome: remedio.nome,
+      horario_tomado: new Date(),
+      status: !tomadoAtual ? "tomado" : "pulado",
+      observacao: "",
+    });
+
+  } catch (err) {
+    console.error("Erro ao atualizar:", err);
+    alert("Erro ao atualizar o medicamento: " + err.message);
+  }
+};
   return (
     <div className="home-container">
       <div className="home-wrapper fade-in">
@@ -104,15 +121,29 @@ export default function Home() {
         <div className="grid-cards">
           {medicamentos.map((m) => (
             <div key={m.id} className="medicamento-card">
-              <h3 className="medicamento-nome">{m.nome}</h3>
-              <p className="medicamento-info">Dose: {m.dose}</p>
-              <span className="horario-badge">⏰ {m.horario}</span>
+              <h3 className="medicamento-nome">{m.nome || "Sem nome"}</h3>
+
+              <p className="medicamento-info">Dose: {m.dose || "-"}</p>
+
+              <span className="horario-badge">
+  ⏰ 
+  {m.horario
+    ? typeof m.horario === "string"
+      ? m.horario                             
+      : new Date(m.horario.seconds * 1000)    
+          .toLocaleTimeString("pt-BR", {
+            hour: "2-digit",
+            minute: "2-digit",
+          })
+    : "Horário não definido"}
+</span>
+
               {m.tomado && <span className="badge-tomado">✔ Tomado</span>}
 
               <div className="card-actions">
                 <button
                   className="btn-action btn-tomar"
-                  onClick={() => handleTomar(m.id, m.tomado || false)}
+                  onClick={() => handleTomar(m.id, m.tomado ?? false)}
                 >
                   {m.tomado ? "Desmarcar" : "Tomar"}
                 </button>

@@ -24,10 +24,10 @@
   flex-direction: column;
   align-items: flex-start;
   margin-bottom: 25px;
-  background-color: transparent;  /* TIRA FUNDO */
-  padding: 0;                     /* TIRA ESPAÇAMENTO DO CARTÃO */
-  border-radius: 0;               /* REMOVE ARREDONDAMENTO */
-  box-shadow: none;               /* REMOVE SOMBRA */
+  background-color: transparent;  
+  padding: 0;                     
+  border-radius: 0;               
+  box-shadow: none;               
   font-family: 'Poppins', sans-serif;
   gap: 10px;
 }
@@ -74,7 +74,6 @@
   box-shadow: 0 6px 10px rgba(0,0,0,0.1);
 }
 
-/* Texto do item */
 .historico-item div {
   display: flex;
   flex-direction: column;
@@ -131,3 +130,29 @@
   transform: translateY(-2px);
   box-shadow: 0 6px 14px rgba(0,0,0,0.15);
 }
+.btn-limpar {
+  display: inline-block;
+  background-color: #e11d48; /* vermelho elegante */
+  color: white;
+  padding: 10px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  border: none;
+  font-size: 1rem;
+  cursor: pointer;
+  margin-bottom: 25px;
+  margin-left: 10px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+  transition: 0.25s ease;
+}
+
+.btn-limpar:hover {
+  background-color: #be123c;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+}
+
+.btn-limpar:active {
+  transform: scale(0.97);
+}
+

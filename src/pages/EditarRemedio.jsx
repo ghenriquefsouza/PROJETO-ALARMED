@@ -30,7 +30,8 @@ export default function EditarRemedio() {
 
           setNome(data.nome);
           setDose(data.dose);
-          setHorario(data.horario);
+          setHorario(data.horario?.slice(0,5) || "" );
+
         } else {
           alert("Medicamento não encontrado.");
           navigate("/home");
@@ -54,7 +55,7 @@ export default function EditarRemedio() {
 
     try {
       const docRef = doc(db, "remedios", id);
-      await updateDoc(docRef, { nome, dose, horario });
+      await updateDoc(docRef, { nome, dose, horario: horario.slice(0,5) });
       alert("Medicamento atualizado com sucesso!");
       navigate("/home");
     } catch (err) {
