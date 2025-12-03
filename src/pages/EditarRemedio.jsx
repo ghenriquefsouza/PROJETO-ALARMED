@@ -30,7 +30,16 @@ export default function EditarRemedio() {
 
           setNome(data.nome);
           setDose(data.dose);
-          setHorario(data.horario?.slice(0,5) || "" );
+          let horarioFormatado = "";
+          if (data.horario?.seconds) {
+            const date = new Date(data.horario.seconds * 1000);
+            const h = String(date.getHours()).padStart(2, "0");
+            const m = String(date.getMinutes()).padStart(2, "0");
+            horarioFormatado = `${h}:${m}`;
+          }
+
+setHorario(horarioFormatado);
+
 
         } else {
           alert("Medicamento não encontrado.");
